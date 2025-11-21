@@ -1,0 +1,9 @@
+# Ignore compiled files
+*.class
+# Ignore output folder
+out/
+# IntelliJ IDEA project files
+*.iml
+.idea/
+# OS files
+.DS_Store
