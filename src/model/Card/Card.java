@@ -1,15 +1,16 @@
+package model.Card;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-    public record Card(Suit suit, String face, int rank){
+    public record Card(Suit suit, String face, int rank) {
         public enum Suit{
             CLUB(9827), DIAMOND(9830), HEART(9829), SPADE(9824);
-            private char symbol; // Renamed from 'ascii'
+            private char symbol;
             Suit(int codePoint) {
                 this.symbol = (char) codePoint;
             }
-            public char getSymbol() { // Renamed from 'getAscii'
+            public char getSymbol() {
                 return symbol;
             }
         }
@@ -30,7 +31,8 @@ import java.util.Optional;
             if(index<0){
                 System.out.println("Invalid face");
                 return null;
-            } return new Card( suit,""+face,index+9);
+            }
+            return new Card( suit,""+face,index+9);
 
         }
         public static List<Card> getStandardDeck(){
@@ -48,14 +50,12 @@ import java.util.Optional;
         }
         public static void PrintStandardDeck(List<Card> Cards, String description, int rows) {
             System.out.println("==========================");
-            if (description != null) {
-                System.out.println(description);
-            }
+                System.out.println((description != null)?description : "Current Deck");
             System.out.println("-----------------------------");
-            int CardsInRow = (int) Math.ceil((float)Cards.size() / rows); // عدد الأوراق في كل صف
+            int CardsInRow = (int) Math.ceil((float)Cards.size() / rows);
 
             for (int i = 0; i < Cards.size(); i++) {
-                System.out.printf("%-10s", Cards.get(i)); // ترك 10 مسافات بعد الكلمة
+                System.out.printf("%-10s", Cards.get(i));
                 if((i+1)%CardsInRow==0){
                     System.out.println();
                 }
