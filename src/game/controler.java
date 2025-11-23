@@ -8,12 +8,15 @@ public class controler {
     private List<Card> ground = new ArrayList<>(4);
     private List<List<Card>> players = new ArrayList<>(4);
 
-    public controler(int NumOfplayer){
+    public controler(int NumOfplayer)  {
+            if(NumOfplayer<2||NumOfplayer>6)
+                throw new IllegalArgumentException("players must be from 2 to 6 ");
+
             this.NumOfplayer = NumOfplayer;
             this.deck = Card.getStandardDeck();
-                for(int i=0;i<this.NumOfplayer;i++){
-                    players.add(new ArrayList());
-                }
+            for(int i=0;i<this.NumOfplayer;i++){
+                players.add(new ArrayList());
+            }
     }
     public void play(){
         int Cardsneeded=NumOfplayer*4+4;
@@ -54,6 +57,7 @@ public class controler {
         for(int i = 0; i < NumOfplayer; i++){
             System.out.println("player "+ (i+1) + " : " +players.get(i));
         }
+
     }
 
     private void NextRoud(){
@@ -83,7 +87,8 @@ public class controler {
     private void DistributingGroundCards(){
         ground.clear();
         System.out.println("Ground Cards");
-        for(int i = 0; i < Math.min(4,deck.size()); i++){
+        int groundCards = Math.min(4, deck.size());
+        for(int i = 0; i < groundCards; i++){
             ground.add(deck.remove(0));
         }
         System.out.println(ground);
