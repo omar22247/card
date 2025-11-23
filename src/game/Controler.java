@@ -2,13 +2,13 @@ package game;
 import java.util.*;
 import model.Card.Card;
 
-public class controler {
+public class  Controler {
     private int NumOfplayer;
     private List<Card> deck;
     private List<Card> ground = new ArrayList<>(4);
     private List<List<Card>> players = new ArrayList<>(4);
 
-    public controler(int NumOfplayer)  {
+    public Controler(int NumOfplayer)  {
             if(NumOfplayer<2||NumOfplayer>6)
                 throw new IllegalArgumentException("players must be from 2 to 6 ");
 
@@ -18,6 +18,7 @@ public class controler {
                 players.add(new ArrayList());
             }
     }
+    //game play
     public void play(){
         int Cardsneeded=NumOfplayer*4+4;
         int x=(int) Math.ceil((float)52/Cardsneeded);
