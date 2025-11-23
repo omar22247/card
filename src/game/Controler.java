@@ -26,9 +26,6 @@ public class Controler {
         return (int) Math.ceil(52.0/Cardsneeded);
     }
     public void playGame(){
-        System.out.println("deck size before: "+deck.size());
-        System.out.println("Player before: "+playersHand);
-        System.out.println("ground before: "+ground);
         Collections.shuffle(this.deck);
         for (int i = 0; i < NoOfRounds(); i++) {
             NextRound();
@@ -38,9 +35,6 @@ public class Controler {
         this.deck = Card.getStandardDeck();
         ground.clear();
         clearPlayerHands();
-        System.out.println("deck size AFTER: "+deck.size());
-        System.out.println("Player AFTER: "+playersHand);
-        System.out.println("ground AFTER: "+ground);
     }
     public void playGame(int y){
         Changeplayers(y);
