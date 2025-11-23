@@ -1,10 +1,10 @@
 import java.util.*;
-import game.Controler;
+import game.controler;
 import model.Card.Card;
 public class Main {
 
     public static void main(String[] args) {
-        Controler c=new Controler(5);
+        controler c=new controler(5);
         Card.PrintStandardDeck(Card.getStandardDeck());
         c.play();
         c.play();
