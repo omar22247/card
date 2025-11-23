@@ -11,7 +11,6 @@ public class Controler {
     public Controler(int NumOfplayer)  {
             if(NumOfplayer<2||NumOfplayer>6)
                 throw new IllegalArgumentException("players must be from 2 to 6 ");
-
               IniatePlay(NumOfplayer);
     }
     public void IniatePlay(int NumOfplayer){
