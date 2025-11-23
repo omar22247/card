@@ -5,87 +5,83 @@ import model.Card.Card;
 public class Controler {
     private int NumOfplayer;
     private List<Card> deck;
-    private List<Card> ground = new ArrayList<>(4);
-    private List<List<Card>> players = new ArrayList<>(4);
+    private final List<Card> ground = new ArrayList<>(4);
+    private List<List<Card>> playersHand;
 
     public Controler(int NumOfplayer)  {
-            if(NumOfplayer<2||NumOfplayer>6)
-                throw new IllegalArgumentException("players must be from 2 to 6 ");
-
-            this.NumOfplayer = NumOfplayer;
-            this.deck = Card.getStandardDeck();
-            for(int i=0;i<this.NumOfplayer;i++){
-                players.add(new ArrayList());
-            }
+        if(NumOfplayer<2||NumOfplayer>6)
+            throw new IllegalArgumentException("players must be from 2 to 6 ");
+        IniatePlay(NumOfplayer);
     }
-    public void play(){
+    public void IniatePlay(int NumOfplayer){
+        this.NumOfplayer = NumOfplayer;
+        this.deck = Card.getStandardDeck();
+        playersHand = new ArrayList<>(NumOfplayer);
+        for(int i=0;i<this.NumOfplayer;i++){
+            playersHand.add(new ArrayList<>());
+        }
+    }
+    public int NoOfRounds(){
         int Cardsneeded=NumOfplayer*4+4;
-        int x=(int) Math.ceil((float)52/Cardsneeded);
-        StartGame();
-        for (int i = 0; i < x; i++) {
-            NextRoud();
-            remaining();
+        return (int) Math.ceil(52.0/Cardsneeded);
+    }
+    public void playGame(){
+        Collections.shuffle(this.deck);
+        for (int i = 0; i < NoOfRounds(); i++) {
+            NextRound();
+            remainingCards();
         }
         this.deck.clear();
         this.deck = Card.getStandardDeck();
+        ground.clear();
+        clearPlayerHands();
     }
-    public void play(int y){
+    public void playGame(int y){
         Changeplayers(y);
-        play();
+        playGame();
     }
-
     private void Changeplayers(int NumOfplayer){
         if(NumOfplayer<2||NumOfplayer>6)
             throw new IllegalArgumentException("players must be from 2 to 6 ");
 
-        this.NumOfplayer = NumOfplayer;
-        this.deck = Card.getStandardDeck();
-        players.clear();
-        for(int i=0;i<NumOfplayer;i++){
-            players.add(new ArrayList());
-        }
-    }
-    private void StartGame(){
-        Collections.shuffle(this.deck);
+        IniatePlay(NumOfplayer);
     }
     private void clearPlayerHands(){
-        for(int i=0;i<this.NumOfplayer;i++){
-            this.players.get(i).clear();
+        for (List<Card> hand : playersHand) {
+            hand.clear();
         }
     }
-    private void remaining(){
-        System.out.println("remaining cards = "  + deck.size());
-    }
-    private void DisplayPlayerHands(){
-        for(int i = 0; i < NumOfplayer; i++){
-            System.out.println("player "+ (i+1) + " : " +players.get(i));
-        }
-
-    }
-
-    private void NextRoud(){
+    private void NextRound(){
         System.out.println("--------------------------");
         clearPlayerHands();
         System.out.println("new round");
-        DistributingCardsforPlayer();
+        DistributingCards();
         DisplayPlayerHands();
         DistributingGroundCards();
         System.out.println("--------------------------");
 
     }
-
-    private void DistributingCards(){
-            for(int j = 0; j < NumOfplayer; j++){
-                players.get(j).add(deck.remove(0));
-            }
+    private void remainingCards(){
+        System.out.println("remaining cards = "  + deck.size());
     }
-    private void DistributingCardsforPlayer(){
-            for(int j = 0; j < 4; j++){
-                if(deck.size()<NumOfplayer){
-                    break;
-                }
-                DistributingCards();
+    private void DisplayPlayerHands(){
+        for(int i = 0; i < NumOfplayer; i++){
+            System.out.println("player "+ (i+1) + " : " +playersHand.get(i));
+        }
+
+    }
+    private void DistributingOneCardForPlayer(){
+        for(int j = 0; j < NumOfplayer; j++){
+            playersHand.get(j).add(deck.remove(0));
+        }
+    }
+    private void DistributingCards(){
+        for(int j = 0; j < 4; j++){
+            if(deck.size()<NumOfplayer){
+                return;
             }
+            DistributingOneCardForPlayer();
+        }
     }
     private void DistributingGroundCards(){
         ground.clear();
