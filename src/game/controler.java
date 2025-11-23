@@ -34,11 +34,14 @@ public class controler {
         play();
     }
 
-    private void Changeplayers(int x){
-        this.NumOfplayer = x;
+    private void Changeplayers(int NumOfplayer){
+        if(NumOfplayer<2||NumOfplayer>6)
+            throw new IllegalArgumentException("players must be from 2 to 6 ");
+
+        this.NumOfplayer = NumOfplayer;
         this.deck = Card.getStandardDeck();
         players.clear();
-        for(int i=0;i<x;i++){
+        for(int i=0;i<NumOfplayer;i++){
             players.add(new ArrayList());
         }
     }
