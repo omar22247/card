@@ -6,9 +6,8 @@ public class Main {
     public static void main(String[] args) {
         Controler c=new Controler(5);
         Card.PrintStandardDeck(Card.getStandardDeck());
-        c.play();
-        c.play();
-        c.play(3);
+        c.playGame();
+        c.playGame(3);
 
     }
 }
